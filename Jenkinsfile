@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'THREAD_COUNT', defaultValue: '10', description: 'Number of threads (users) to simulate')
-        string(name: 'RAMP_UP_TIME', defaultValue: '5', description: 'Ramp-up time in seconds')
+        string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
         string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
         choice(
             name: 'TEST_NAME',
