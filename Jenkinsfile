@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        JMETER_HOME = '/root/apache-jmeter-5.6.3/bin'
+        JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin'
     }
     stages {
         stage('Checkout') {
@@ -12,7 +12,7 @@ pipeline {
         stage('Run JMeter Tests') {
             steps {
                 script {
-                    sh "${JMETER_HOME}/./jmeter -n -t PerformanceForLivestream.jmx -l ./results/PerformanceForLivestreamResults.jtl -e -o ./reports/PerformanceForLivestreamReport"
+                    sh "${JMETER_HOME}/rm -rf ./results/PerformanceForLivestreamResults.jtl ./reports/PerformanceForLivestreamReport && ./jmeter -n -t PerformanceForLivestream.jmx -l ./results/PerformanceForLivestreamResults.jtl -e -o ./reports/PerformanceForLivestreamReport"
                 }
             }
         }
