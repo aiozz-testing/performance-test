@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
         JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin'
-        // TEST_NAME = 'PerformanceForLivestream'
+        TEST_NAME = 'PerformanceForLivestream'
         // TEST_NAME = 'PerformanceForRandomSwitchingPublicPrivateVideos'
-        TEST_NAME = 'PerformanceForVideo'
+        // TEST_NAME = 'PerformanceForVideo'
     }
     stages {
         stage('Checkout') {
