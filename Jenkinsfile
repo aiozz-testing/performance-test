@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        JMETER_HOME = '/roott/apache-jmeter-5.6.3/bin'
+        JMETER_HOME = '/root/apache-jmeter-5.6.3/bin'
     }
     stages {
         stage('Checkout') {
