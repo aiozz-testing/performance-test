@@ -635,7 +635,7 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
             </elementProp>
             <elementProp name="serverName" elementType="Argument">
               <stringProp name="Argument.name">serverName</stringProp>
-              <stringProp name="Argument.value">w3stream.attoaioz.cyou</stringProp>
+              <stringProp name="Argument.value">${__P(ENVIRONMENT, 1)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="port" elementType="Argument">
@@ -693,7 +693,7 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
