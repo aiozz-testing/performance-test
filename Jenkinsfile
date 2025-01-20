@@ -1,11 +1,6 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
-        string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
-        string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
-        string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
-
         choice(
             name: 'TEST_NAME',
             choices: [
@@ -24,6 +19,11 @@ pipeline {
             ],
             description: 'Select the environment to test against'
         )
+
+        string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
+        string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
+        string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
+        string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
     }
     environment {
         JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin'
@@ -42,6 +42,7 @@ pipeline {
                         ${JMETER_HOME}/jmeter -n -t ${params.TEST_NAME}.jmx \
                             -l ./results/${params.TEST_NAME}Results.jtl \
                             -e -o ./reports/${params.TEST_NAME}Report \
+                            -JENVIRONMENT=${params.ENVIRONMENT} \
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
                             -JLOOP_COUNT=${params.LOOP_COUNT} \
