@@ -12,7 +12,7 @@ pipeline {
         stage('Run JMeter Tests') {
             steps {
                 script {
-                    sh "${JMETER_HOME}/rm -rf ./results/PerformanceForLivestreamResults.jtl ./reports/PerformanceForLivestreamReport && ./jmeter -n -t PerformanceForLivestream.jmx -l ./results/PerformanceForLivestreamResults.jtl -e -o ./reports/PerformanceForLivestreamReport"
+                    sh "${JMETER_HOME}/./jmeter -n -t PerformanceForLivestream.jmx -l ./results/PerformanceForLivestreamResults.jtl -e -o ./reports/PerformanceForLivestreamReport"
                 }
             }
         }
