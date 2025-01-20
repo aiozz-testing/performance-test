@@ -4,6 +4,8 @@ pipeline {
         string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
         string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
         string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
+        string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
+
         choice(
             name: 'TEST_NAME',
             choices: [
@@ -33,7 +35,8 @@ pipeline {
                             -e -o ./reports/${params.TEST_NAME}Report \
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
-                            -JLOOP_COUNT=${params.LOOP_COUNT}
+                            -JLOOP_COUNT=${params.LOOP_COUNT} \
+                            -JLIVESTREAM_ID=${params.LIVESTREAM_ID}
                     """
                 }
             }

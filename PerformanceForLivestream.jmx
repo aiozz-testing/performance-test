@@ -554,17 +554,17 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
         <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Stag">
-        <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(JRAMP_UP_TIME)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 1)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(JRAMP_UP_TIME, 1)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
-          <stringProp name="LoopController.loops">${__P(LOOP_COUNT)}</stringProp>
+          <stringProp name="LoopController.loops">${__P(LOOP_COUNT, 1)}</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">accept</stringProp>
@@ -626,11 +626,11 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
           <stringProp name="TestPlan.comments">Created from cURL on 2025-01-08T16:56:55.4015177</stringProp>
         </HeaderManager>
         <hashTree/>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
           <collectionProp name="Arguments.arguments">
             <elementProp name="liveStreamId" elementType="Argument">
               <stringProp name="Argument.name">liveStreamId</stringProp>
-              <stringProp name="Argument.value">ef71a847-ebab-4fe3-888c-3eac4a524019</stringProp>
+              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 1)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="serverName" elementType="Argument">
@@ -693,7 +693,7 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
