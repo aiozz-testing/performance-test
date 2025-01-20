@@ -15,6 +15,15 @@ pipeline {
             ],
             description: 'Select the test you want to run'
         )
+
+        choice(
+            name: 'Env',
+            choices: [
+                'w3stream.attoaioz.cyou',
+                'w3stream.xyz'
+            ],
+            description: 'Select the environment to test against'
+        )
     }
     environment {
         JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin'
