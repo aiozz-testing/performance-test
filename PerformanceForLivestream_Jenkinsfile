@@ -2,16 +2,6 @@ pipeline {
     agent any
     parameters {
         choice(
-            name: 'TEST_NAME',
-            choices: [
-                'PerformanceForLivestream',
-                'PerformanceForRandomSwitchingPublicPrivateVideos',
-                'PerformanceForVideo'
-            ],
-            description: 'Select the test you want to run'
-        )
-
-        choice(
             name: 'ENVIRONMENT',
             choices: [
                 'w3stream.xyz',
@@ -26,7 +16,9 @@ pipeline {
         string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
     }
     environment {
-        JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin'
+        JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin',
+        TEST_NAME = 'PerformanceForLivestream'
+
     }
     stages {
         stage('Checkout') {
@@ -51,12 +43,5 @@ pipeline {
                 }
             }
         }
-        // stage('Publish Results') {
-        //     steps {
-        //         publishPerformanceTestResults parsers: [
-        //             [$class: 'JMeterCsvParser', glob: '${params.TEST_NAME}Results.jtl']
-        //         ]
-        //     }
-        // }
     }
 }
