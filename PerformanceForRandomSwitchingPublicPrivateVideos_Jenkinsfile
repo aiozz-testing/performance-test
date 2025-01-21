@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'VIDEO_ID', defaultValue: '0', description: 'Video id')
+        string(name: 'AUTHORIZATION', defaultValue: '0', description: 'Authorization')
         choice(
             name: 'ENVIRONMENT',
             choices: [
@@ -54,7 +54,7 @@ pipeline {
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
                             -JLOOP_COUNT=${params.LOOP_COUNT} \
-                            -JVIDEO_ID=${params.VIDEO_ID}
+                            -JAUTHORIZATION=${params.AUTHORIZATION}
                     """
                 }
             }

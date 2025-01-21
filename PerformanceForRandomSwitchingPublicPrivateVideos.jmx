@@ -10,27 +10,37 @@
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Prod">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
-        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 1)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(RAMP_UP_TIME, 1)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">${__P(LOOP_COUNT, 1)}</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
           <collectionProp name="Arguments.arguments">
             <elementProp name="RandomVar" elementType="Argument">
               <stringProp name="Argument.name">RandomVar</stringProp>
               <stringProp name="Argument.value">${__Random(0,1,)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
+            <elementProp name="serverName" elementType="Argument">
+              <stringProp name="Argument.name">serverName</stringProp>
+              <stringProp name="Argument.value">${__P(ENVIRONMENT, null)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="api_serverName" elementType="Argument">
+              <stringProp name="Argument.name">api_serverName</stringProp>
+              <stringProp name="Argument.value">${__P(API_ENVIRONMENT, null)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">accept</stringProp>
@@ -42,7 +52,7 @@
             </elementProp>
             <elementProp name="authorization" elementType="Header">
               <stringProp name="Header.name">authorization</stringProp>
-              <stringProp name="Header.value">Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzcwMjk5NTEsImlhdCI6MTczNzAyNjM1MSwibmJmIjoxNzM3MDI2MzUxLCJzdWIiOnsicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjcwNzllNzgtNGY2Yy00ODU2LWEyMmUtNmIxZGUzZWJmOWZiIn19.F7mlL_JjndsAJv7sbvprA9xBVe0B8GM2kYVEILVeIgQXtZwK2Y21zDtclCVn4xIwoPxleWuazhZjvSJpCbeOoJltqd57a7RCqapob203eMz0Ln2FMfS_fjAxWf-NBpAKK23qtrU5rEf6xXPYYlRuXczklCrySPGnOioV9-tLhHA</stringProp>
+              <stringProp name="Header.value">${__P(AUTHORIZATION, Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzc0NDk1NzUsImlhdCI6MTczNzQ0NTk3NSwibmJmIjoxNzM3NDQ1OTc1LCJzdWIiOnsicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjcwNzllNzgtNGY2Yy00ODU2LWEyMmUtNmIxZGUzZWJmOWZiIn19.CLl5eYQvVGYzxAa3Ph13lXRC3B-TMZNGss3NVtUSQUy0wCK3sBQXblrTGRlldJwFY_gYNVMO2KwonzfrYLmsHd1wj0t5tOaqWy3JijdZXhio4kGi0pT-8vMmUbxu9t_Hu7XQPwZ81kLEMMRfQmKyNf-SfeqPvragL1ggaDNOQI4)}</stringProp>
             </elementProp>
             <elementProp name="cache-control" elementType="Header">
               <stringProp name="Header.name">cache-control</stringProp>
@@ -100,9 +110,9 @@
           <stringProp name="TestPlan.comments">Created from cURL on 2025-01-16T16:45:03.4496953</stringProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="videos" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="videos">
           <stringProp name="TestPlan.comments">Created from cURL on 2025-01-16T16:45:03.4496953</stringProp>
-          <stringProp name="HTTPSampler.domain">api.w3stream.xyz</stringProp>
+          <stringProp name="HTTPSampler.domain">${api_serverName}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/api/videos</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
@@ -122,7 +132,7 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor">
             <stringProp name="JSONPostProcessor.referenceNames">video_ids</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.videos[*].id</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
@@ -130,9 +140,9 @@
           </JSONPostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="update" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="update">
           <stringProp name="TestPlan.comments">Created from cURL on 2025-01-16T16:49:10.2177306</stringProp>
-          <stringProp name="HTTPSampler.domain">api.w3stream.xyz</stringProp>
+          <stringProp name="HTTPSampler.domain">${api_serverName}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/api/videos/${video_ids}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
@@ -152,7 +162,7 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor">
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
             <boolProp name="resetInterpreter">false</boolProp>
@@ -169,7 +179,7 @@ if (randomValue == 1) {
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -206,7 +216,7 @@ if (randomValue == 1) {
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
