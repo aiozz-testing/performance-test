@@ -30,10 +30,10 @@ pipeline {
             steps {
                 script {
                     sh """
-                        rm -rf ./results/${params.TEST_NAME}Results.jtl ./reports/${params.TEST_NAME}Report &&
-                        ${JMETER_HOME}/jmeter -n -t ${params.TEST_NAME}.jmx \
-                            -l ./results/${params.TEST_NAME}Results.jtl \
-                            -e -o ./reports/${params.TEST_NAME}Report \
+                        rm -rf ./results/${TEST_NAME}Results.jtl ./reports/${TEST_NAME}Report &&
+                        ${JMETER_HOME}/jmeter -n -t ${TEST_NAME}.jmx \
+                            -l ./results/${TEST_NAME}Results.jtl \
+                            -e -o ./reports/${TEST_NAME}Report \
                             -JENVIRONMENT=${params.ENVIRONMENT} \
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
