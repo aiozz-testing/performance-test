@@ -13,7 +13,7 @@ pipeline {
         string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
         string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
         string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
-        string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
+        string(name: 'VIDEO_ID', defaultValue: '0', description: 'Video id')
     }
     environment {
         JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin';
@@ -26,6 +26,21 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/aiozz-testing/performance-test.git'
             }
         }
+        stage('Set Dynamic Environment') {
+            steps {
+                script {
+                    // Modify the environment variable based on the chosen parameter
+                    if (params.ENVIRONMENT == 'w3stream.xyz') {
+                        env.API_ENVIRONMENT = 'api.w3stream.xyz'
+                    } else if (params.ENVIRONMENT == 'w3stream.attoaioz.cyou') {
+                        env.API_ENVIRONMENT = 'api-w3stream.attoaioz.cyou'
+                    } else {
+                        error "Invalid ENVIRONMENT choice: ${params.ENVIRONMENT}"
+                    }
+                    echo "API-ENVIRONMENT set to: ${env.API_ENVIRONMENT}"
+                }
+            }
+        }
         stage('Run JMeter Tests') {
             steps {
                 script {
@@ -35,10 +50,11 @@ pipeline {
                             -l ./results/${TEST_NAME}Results.jtl \
                             -e -o ./reports/${TEST_NAME}Report \
                             -JENVIRONMENT=${params.ENVIRONMENT} \
+                            -JAPI_ENVIRONMENT=${env.API_ENVIRONMENT} \
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
                             -JLOOP_COUNT=${params.LOOP_COUNT} \
-                            -JLIVESTREAM_ID=${params.LIVESTREAM_ID}
+                            -JVIDEO_ID=${params.VIDEO_ID}
                     """
                 }
             }
