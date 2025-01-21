@@ -44,4 +44,21 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            script {
+                try {
+                    sh """
+                        # Ensure the destination folder exists
+                        mkdir -p /var/lib/jenkins/workspace/JmeterReport
+                        
+                        # Copy the report folder to the destination
+                        cp -r ./reports/${TEST_NAME}Report /var/lib/jenkins/workspace/JmeterReport/
+                    """
+                } catch (Exception e) {
+                    echo "Failed to copy report: ${e.getMessage()}"
+                }
+            }
+        }
+    }
 }
