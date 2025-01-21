@@ -554,8 +554,8 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
         <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Stag">
-        <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 1)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(JRAMP_UP_TIME, 1)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 100)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(JRAMP_UP_TIME, 100)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -693,7 +693,7 @@ log.info(&quot;Generated session_id: &quot; + sessionId);</stringProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
