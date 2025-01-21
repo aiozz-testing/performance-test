@@ -54,7 +54,7 @@ pipeline {
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
                             -JLOOP_COUNT=${params.LOOP_COUNT} \
-                            -JAUTHORIZATION=${params.AUTHORIZATION}
+                            -JAUTHORIZATION='${params.AUTHORIZATION}'
                     """
                 }
             }
