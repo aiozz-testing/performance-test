@@ -16,8 +16,8 @@ pipeline {
         string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
     }
     environment {
-        JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin',
-        TEST_NAME = 'PerformanceForLivestream'
+        JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin';
+        TEST_NAME = 'PerformanceForLivestream';
 
     }
     stages {
