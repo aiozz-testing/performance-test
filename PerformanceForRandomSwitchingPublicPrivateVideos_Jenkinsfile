@@ -17,7 +17,7 @@ pipeline {
     }
     environment {
         JMETER_HOME = '/opt/apache-jmeter-5.6.3/bin';
-        TEST_NAME = 'PerformanceForVideo';
+        TEST_NAME = 'PerformanceForRandomSwitchingPublicPrivateVideos';
 
     }
     stages {
