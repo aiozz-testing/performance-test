@@ -5,6 +5,8 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Stag">
@@ -18,7 +20,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">accept</stringProp>
@@ -84,12 +86,12 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="liveStreamId" elementType="Argument">
               <stringProp name="Argument.name">liveStreamId</stringProp>
-              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 1)}</stringProp>
+              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, c16336ed-d689-4521-8b2d-8493b4579b01)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="serverName" elementType="Argument">
               <stringProp name="Argument.name">serverName</stringProp>
-              <stringProp name="Argument.value">${__P(ENVIRONMENT, 1)}</stringProp>
+              <stringProp name="Argument.value">${__P(ENVIRONMENT, w3stream.attoaioz.cyou)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="port" elementType="Argument">
@@ -147,7 +149,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -258,11 +260,11 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get playlist m3u8">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get video1_stream.m3u8">
           <stringProp name="HTTPSampler.domain">live-${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/live/${liveStreamId}/720p/playlist.m3u8</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/audio2_stream.m3u8</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -273,36 +275,26 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all chunkId" enabled="true">
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all video part" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-            <stringProp name="RegexExtractor.refname">newestChunk</stringProp>
-            <stringProp name="RegexExtractor.regex">(\d+)/chunk\.ts</stringProp>
+            <stringProp name="RegexExtractor.refname">video_last_uri</stringProp>
+            <stringProp name="RegexExtractor.regex">URI=&quot;([^&quot;]+)&quot;</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
-            <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+            <stringProp name="RegexExtractor.default">video_last_uri_not_found</stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             <stringProp name="RegexExtractor.match_number">-1</stringProp>
           </RegexExtractor>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="2005067168">chunk.ts</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">16</intProp>
-          </ResponseAssertion>
-          <hashTree/>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">4000</stringProp>
+            <stringProp name="ConstantTimer.delay">300</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest chunk">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest video part">
           <stringProp name="HTTPSampler.domain">live-${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/live/${liveStreamId}/720p/${latestId}/chunk.ts</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/${vide_final_last_uri}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -313,30 +305,101 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Get the lastest chunkId" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">// Get all extracted IDs as a comma-separated string
-def ids = vars.get(&quot;newestChunk_3&quot;)?.split(&quot;,&quot;) // Replace &apos;myVariable&apos; with your chosen variable name
-// Log the value of myVariable_all
-log.info(&quot;Extracted IDs (myVariable_all): &quot; + ids)
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">// Get the last match number as a string
+def videolastIndex = vars.get(&quot;video_last_uri_matchNr&quot;)
+log.info(&quot;The number of video last url that match: &quot; + videolastIndex)
 
-if (ids) {
-    // Get the last ID
-    def latestId = ids[-1]
-    log.info(&quot;Latest chunk ID: &quot; + latestId)
-    vars.put(&quot;latestId&quot;, latestId) // Store the latest ID in a JMeter variable
+// Ensure lastIndex is not null or empty
+if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
+    // Construct the variable name dynamically
+    def videolastUriVar = &quot;video_last_uri_&quot; + videolastIndex + &quot;_g1&quot;
+    
+    // Retrieve its value from JMeter variables
+    def videolastUri = vars.get(videolastUriVar)
+    
+    log.info(&quot;Dynamically extracted video last URI: &quot; + videolastUri)
+
+    // Store it in a new variable for use in HTTP requests
+    vars.put(&quot;vide_final_last_uri&quot;, videolastUri)
 } else {
-    log.error(&quot;No IDs found in the response!&quot;)
+    log.warn(&quot;No valid video last URI found!&quot;)
 }
 </stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">500</stringProp>
-          </ConstantTimer>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get audio2_stream.m3u8">
+          <stringProp name="HTTPSampler.domain">live-${serverName}</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/audio2_stream.m3u8</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all audio part" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">audio_last_uri</stringProp>
+            <stringProp name="RegexExtractor.regex">URI=&quot;([^&quot;]+)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">audio_last_uri_not_found</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest audio part">
+          <stringProp name="HTTPSampler.domain">live-${serverName}</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/${audio_final_last_uri}</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">// Get the last match number as a string
+def lastIndex = vars.get(&quot;audio_last_uri_matchNr&quot;)
+log.info(&quot;The number of audio last url that match: &quot; + lastIndex)
+
+// Ensure lastIndex is not null or empty
+if (lastIndex &amp;&amp; !lastIndex.isEmpty()) {
+    // Construct the variable name dynamically
+    def lastUriVar = &quot;audio_last_uri_&quot; + lastIndex + &quot;_g1&quot;
+    
+    // Retrieve its value from JMeter variables
+    def lastUri = vars.get(lastUriVar)
+    
+    log.info(&quot;Dynamically extracted last URI: &quot; + lastUri)
+
+    // Store it in a new variable for use in HTTP requests
+    vars.put(&quot;audio_final_last_uri&quot;, lastUri)
+} else {
+    log.warn(&quot;No audio valid last URI found!&quot;)
+}
+</stringProp>
+          </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Watch_infor1" enabled="false">
