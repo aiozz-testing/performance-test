@@ -11,6 +11,7 @@ pipeline {
         //     description: 'Select the environment to test against'
         // )
 
+        string(name: 'ENVIRONMENT', defaultValue: 'aiozstream.network', description: 'The environment to test against')
         string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
         string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
         string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
@@ -34,6 +35,7 @@ pipeline {
                         ${JMETER_HOME}/jmeter -n -t ${TEST_NAME}.jmx \
                             -l ./results/${TEST_NAME}Results.jtl \
                             -e -o ./reports/${TEST_NAME}Report \
+                            -JENVIRONMENT=${params.ENVIRONMENT} \
                             -JTHREAD_COUNT=${params.THREAD_COUNT} \
                             -JRAMP_UP_TIME=${params.RAMP_UP_TIME} \
                             -JLOOP_COUNT=${params.LOOP_COUNT} \
