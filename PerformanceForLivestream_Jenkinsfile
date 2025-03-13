@@ -21,11 +21,11 @@ pipeline {
 
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/aiozz-testing/performance-test.git'
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         git branch: 'main', url: 'https://github.com/aiozz-testing/performance-test.git'
+        //     }
+        // }
         stage('Run JMeter Tests') {
             steps {
                 script {
