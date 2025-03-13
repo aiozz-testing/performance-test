@@ -5,7 +5,7 @@ pipeline {
         choice(
             name: 'ENVIRONMENT',
             choices: [
-                'w3stream.xyz',
+                'aiozstream.network',
                 'w3stream.attoaioz.cyou'   
             ],
             description: 'Select the environment to test against'
