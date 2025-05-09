@@ -86,7 +86,7 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="liveStreamId" elementType="Argument">
               <stringProp name="Argument.name">liveStreamId</stringProp>
-              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 22f178f1-ae82-4313-bfcb-4362aa79a68b)}</stringProp>
+              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 1e134d01-4b1a-4b29-8296-ce3ffe917790)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="serverName" elementType="Argument">
