@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'LIVESTREAM_ID', defaultValue: '0', description: 'Livestream id')
+        string(name: 'LIVESTREAM_ID', defaultValue: '22f178f1-ae82-4313-bfcb-4362aa79a68b', description: 'Livestream id')
         // choice(
         //     name: 'ENVIRONMENT',
         //     choices: [
@@ -11,7 +11,7 @@ pipeline {
         //     description: 'Select the environment to test against'
         // )
 
-        string(name: 'ENVIRONMENT', defaultValue: 'aiozstream.network', description: 'The environment to test against')
+        string(name: 'ENVIRONMENT', defaultValue: '157.230.195.37', description: 'The environment to test against')
         string(name: 'THREAD_COUNT', defaultValue: '1', description: 'Number of threads (users) to simulate')
         string(name: 'RAMP_UP_TIME', defaultValue: '1', description: 'Ramp-up time in seconds')
         string(name: 'LOOP_COUNT', defaultValue: '1', description: 'Number of iterations per thread')
