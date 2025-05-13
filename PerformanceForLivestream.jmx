@@ -20,7 +20,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">accept</stringProp>
@@ -86,17 +86,17 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="liveStreamId" elementType="Argument">
               <stringProp name="Argument.name">liveStreamId</stringProp>
-              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 1e134d01-4b1a-4b29-8296-ce3ffe917790)}</stringProp>
+              <stringProp name="Argument.value">${__P(LIVESTREAM_ID, 700d31af-93ed-436f-bd26-424d0245a3f0)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="serverName" elementType="Argument">
               <stringProp name="Argument.name">serverName</stringProp>
-              <stringProp name="Argument.value">${__P(ENVIRONMENT, 157.230.195.37)}</stringProp>
+              <stringProp name="Argument.value">${__P(ENVIRONMENT, live-w3stream.attoaioz.cyou)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="port" elementType="Argument">
               <stringProp name="Argument.name">port</stringProp>
-              <stringProp name="Argument.value">${__P(PORT, 88)}</stringProp>
+              <stringProp name="Argument.value">${__P(PORT, 0)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="testtest" elementType="Argument">
@@ -274,7 +274,7 @@
           <stringProp name="HTTPSampler.domain">${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/${liveStreamId}/audio2_stream.m3u8</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/video1_stream.m3u8</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -288,11 +288,11 @@
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all video part">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">video_last_uri</stringProp>
-            <stringProp name="RegexExtractor.regex">URI=&quot;([^&quot;]+)&quot;</stringProp>
+            <stringProp name="RegexExtractor.regex">\b([a-zA-Z0-9]+_video1_seg\d+\.mp4)\b</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">video_last_uri_not_found</stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
-            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
           <hashTree/>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
@@ -309,7 +309,7 @@
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Verify the text response">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Verify the text response" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="2059259374">EXTM3U</stringProp>
             </collectionProp>
@@ -324,11 +324,11 @@
           </DurationAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest video part" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest video part">
           <stringProp name="HTTPSampler.domain">${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/${liveStreamId}/${vide_final_last_uri}</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/${video_last_uri}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -339,7 +339,7 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="false">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -366,7 +366,7 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
 </stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -381,7 +381,7 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
           </DurationAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get audio2_stream.m3u8" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get audio2_stream.m3u8">
           <stringProp name="HTTPSampler.domain">${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -396,14 +396,14 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all audio part" enabled="true">
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract all audio part">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">audio_last_uri</stringProp>
-            <stringProp name="RegexExtractor.regex">URI=&quot;([^&quot;]+)&quot;</stringProp>
+            <stringProp name="RegexExtractor.regex">\b([a-zA-Z0-9]+_audio2_seg\d+\.mp4)\b</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">audio_last_uri_not_found</stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
-            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Verify status code" enabled="true">
@@ -431,11 +431,11 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
           </DurationAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest audio part" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get newest audio part">
           <stringProp name="HTTPSampler.domain">${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/${liveStreamId}/${audio_final_last_uri}</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/${audio_last_uri}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -446,7 +446,7 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="false">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
