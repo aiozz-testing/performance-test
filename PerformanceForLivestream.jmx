@@ -435,7 +435,7 @@ if (videolastIndex &amp;&amp; !videolastIndex.isEmpty()) {
           <stringProp name="HTTPSampler.domain">${serverName}</stringProp>
           <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.path">/${liveStreamId}/${audio_last_urii}</stringProp>
+          <stringProp name="HTTPSampler.path">/${liveStreamId}/${audio_last_uri}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
