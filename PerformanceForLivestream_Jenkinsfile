@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'LIVESTREAM_ID', defaultValue: '1e134d01-4b1a-4b29-8296-ce3ffe917790', description: 'Livestream id')
+        string(name: 'LIVESTREAM_ID', defaultValue: '5c2ad412-e390-4b1d-84f4-6ffb8ad30639', description: 'Livestream id')
         // choice(
         //     name: 'ENVIRONMENT',
         //     choices: [
