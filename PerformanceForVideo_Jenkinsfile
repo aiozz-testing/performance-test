@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'VIDEO_ID', defaultValue: '0', description: 'Video id')
+        string(name: 'VIDEO_ID', defaultValue: '3b407ad1-4bc5-4a4f-aaea-ff6315b3ea9c', description: 'Video id')
         choice(
             name: 'ENVIRONMENT',
             choices: [
