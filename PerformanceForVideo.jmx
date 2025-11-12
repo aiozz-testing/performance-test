@@ -293,7 +293,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Prod v1.2 (HLS)" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Prod v1.2 (HLS)">
         <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 10)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(RAMP_UP_TIME, 1)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -553,7 +553,7 @@
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Prod v1.2 (DASH)">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Prod v1.2 (DASH)" enabled="false">
         <stringProp name="ThreadGroup.num_threads">${__P(THREAD_COUNT, 1)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(RAMP_UP_TIME, 1)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -634,7 +634,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="id" elementType="Argument">
                 <stringProp name="Argument.name">id</stringProp>
-                <stringProp name="Argument.value">${__P(VIDEO_ID, 9342062c-f473-47dc-9e8c-52ea19054afd)}</stringProp>
+                <stringProp name="Argument.value">${__P(VIDEO_ID, 1b47e27e-da51-4c62-87be-af87cb963da0)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -725,7 +725,7 @@
             <boolProp name="displaySystemProperties">false</boolProp>
           </DebugSampler>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
